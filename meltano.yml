@@ -1,7 +1,67 @@
 version: 1
 default_environment: dev
 project_id: ce4da7d1-ac19-43b1-bc1e-225dfda89d60
+plugins:
+  extractors:
+  - name: tap-asana
+    namespace: tap_asana
+    pip_url: tap-asana
+    executable: tap-asana
+    capabilities:
+    - catalog
+    - discover
+    - properties
+    - state
+    settings:
+    - name: client_id
+      kind: oauth
+    - name: client_secret
+      kind: oauth
+    - name: redirect_uri
+      kind: oauth
+    - name: refresh_token
+      kind: oauth
+    - name: start_date
+      kind: date_iso8601
+  loaders:
+  - name: target-duckdb
+    namespace: target_duckdb
+    pip_url: target-duckdb
+    executable: target-duckdb
+    settings:
+    - name: filepath
+      kind: string
+    - name: default_target_schema
+      kind: string
+  transformers:
+  - name: dbt
+    pip_url: 'dbt-core~=1.0.0 dbt-postgres~=1.0.0 dbt-redshift~=1.0.0 dbt-snowflake~=1.0.0
+      dbt-bigquery~=1.0.0 dbt-duckdb~=1.1.0
+
+      '
 environments:
 - name: dev
+  config:
+    plugins:
+      extractors:
+      - name: tap-asana
+        config:
+          start_date: '2021-01-01T00:00:00.000Z'
+        select:
+        - '*.*'
+        - '!workspaces.*'
+        - '!teams.*'
+        - '!users.photo.*'
+        - '!users.photo'
+        - '!stories.*'
+        - '!portfolios.*'
+      loaders:
+      - name: target-duckdb
+        config:
+          default_target_schema: main
+      transformers:
+      - name: dbt
+        config:
+          target: duckdb
 - name: staging
 - name: prod
