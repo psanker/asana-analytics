@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: tasks_projects
+    description: This is a mapping of all projects that a task is linked to
+    columns:
+      - name: task_gid
+        description: The task GID
+        tests:
+          - not_null
+      - name: proj_gid
+        description: The project GID
+        tests:
+          - not_null
