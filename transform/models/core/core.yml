@@ -12,3 +12,14 @@ models:
         description: The project GID
         tests:
           - not_null
+  - name: projects_users
+    description: This is a mapping of all users in a project
+    columns:
+      - name: proj_gid
+        description: The project GID
+        tests:
+          - not_null
+      - name: user_gid
+        description: The user GID
+        tests:
+          - not_null
