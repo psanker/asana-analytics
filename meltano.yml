@@ -5,7 +5,7 @@ plugins:
   extractors:
   - name: tap-asana
     namespace: tap_asana
-    pip_url: tap-asana
+    pip_url: "git+https://github.com/psanker/tap-asana.git@feature/improved-project-status"
     executable: tap-asana
     capabilities:
     - catalog

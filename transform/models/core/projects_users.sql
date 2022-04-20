@@ -11,7 +11,7 @@ with unnested as (
         '[{"gid": "VARCHAR"}]'
       )
     ) as users
-  from projects
+  from {{ source('tap_asana', 'projects') }}
 )
 select
   gid as proj_gid,
