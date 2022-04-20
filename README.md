@@ -6,7 +6,9 @@ This is a very basic ELT pipeline, ingesting data from Asana and then creating m
 
 ```sh
 git clone https://github.com/psanker/asana-analytics
+cd asana-analytics
 pipenv install
+pipenv shell
 meltano install
 ```
 
